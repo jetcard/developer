@@ -1,0 +1,149 @@
+<mat-card>
+
+    <!--h2 class="alinear">Listado de Categorías</h2-->
+    <mat-card-header>
+
+        <div>
+            <mat-form-field hintLabel="Busque categoría" appearance="fill">
+
+                <mat-label>Buscar</mat-label>
+                <input matInput #input (keyup)="buscar(input.value)">
+            </mat-form-field>
+        </div>
+    </mat-card-header>
+
+    <mat-card-header>
+
+        <div class="right">
+            <ul>
+                <!--li>
+                    <button mat-raised-button color="primary" (click)="openCategoryDialog()">Agregar Categoría</button>
+                </li-->
+                <li>
+                    <button mat-button color="primary" (click)="exportExcel()">Exportar Excel</button>
+                </li>
+            </ul>
+        </div>
+
+    </mat-card-header>
+
+    <div mat-card-image></div>
+
+    <mat-card-content>
+
+        <table mat-table [dataSource]="dataSource" class="mat-cell">
+
+            <!-- id column-->
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef> Nº</th>
+                <td mat-cell *matCellDef="let element"> {{ element.id}}</td>
+            </ng-container>
+
+            <!-- codigo column -->
+            <ng-container matColumnDef="codigo">
+                <th mat-header-cell *matHeaderCellDef> Código </th>
+                <td mat-cell *matCellDef="let element"> {{ element.codigo}}</td>
+            </ng-container>
+
+            <!-- moneda column -->
+            <ng-container matColumnDef="moneda">
+                <th mat-header-cell *matHeaderCellDef> Moneda </th>
+                <td mat-cell *matCellDef="let element"> {{ element.moneda}}</td>
+            </ng-container>
+
+            <!-- nroCuota column -->
+            <ng-container matColumnDef="nroCuota">
+                <th mat-header-cell *matHeaderCellDef> Nro Cuota </th>
+                <td mat-cell *matCellDef="let element"> {{ element.nroCuota}}</td>
+            </ng-container>
+            <!-- fechaDesembolso column -->
+            <ng-container matColumnDef="fechaDesembolso">
+                <th mat-header-cell *matHeaderCellDef> Fecha Desembolso </th>
+                <td mat-cell *matCellDef="let element"> {{ element.fechaDesembolso}}</td>
+            </ng-container>
+
+            <!-- nombres column -->
+            <ng-container matColumnDef="nombres">
+                <th mat-header-cell *matHeaderCellDef> Nombres </th>
+                <td mat-cell *matCellDef="let element"> {{ element.nombres}}</td>
+            </ng-container>
+
+            <!-- fecha nacimiento column -->
+            <ng-container matColumnDef="fechaPago">
+                <th mat-header-cell *matHeaderCellDef> Fecha de Pago </th>
+                <td mat-cell *matCellDef="let element"> {{ element.fechaPago}}</td>
+            </ng-container>
+
+            <!-- dirección column -->
+            <ng-container matColumnDef="monto">
+                <th mat-header-cell *matHeaderCellDef> monto </th>
+                <td mat-cell *matCellDef="let element"> {{ element.monto}}</td>
+            </ng-container>
+
+            <!-- código ubigeo column -->
+            <ng-container matColumnDef="tea">
+                <th mat-header-cell *matHeaderCellDef> TEA </th>
+                <td mat-cell *matCellDef="let element"> {{ element.tea}}</td>
+            </ng-container>
+
+            <!-- interesCompensatorio column -->
+            <ng-container matColumnDef="interesCompensatorio">
+                <th mat-header-cell *matHeaderCellDef> interesCompensatorio </th>
+                <td mat-cell *matCellDef="let element"> {{ element.interesCompensatorio}}</td>
+            </ng-container>
+
+            <!-- interesProvision column -->
+            <ng-container matColumnDef="interesProvision">
+                <th mat-header-cell *matHeaderCellDef> interesProvision </th>
+                <td mat-cell *matCellDef="let element"> {{ element.interesProvision}}</td>
+            </ng-container>
+
+            <!-- igv column -->
+            <ng-container matColumnDef="igv">
+                <th mat-header-cell *matHeaderCellDef> igv </th>
+                <td mat-cell *matCellDef="let element"> {{ element.igv}}</td>
+            </ng-container>
+
+            <!-- código inmueble column -->
+            <ng-container matColumnDef="diasTranscurridos">
+                <th mat-header-cell *matHeaderCellDef> diasTranscurridos </th>
+                <td mat-cell *matCellDef="let element"> {{ element.diasTranscurridos}}</td>
+            </ng-container>
+
+            <!-- total column -->
+            <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef> total </th>
+                <td mat-cell *matCellDef="let element"> {{ element.total}}</td>
+            </ng-container>
+
+            <!-- actions-->
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                <td mat-cell *matCellDef="let element; let i=index;">
+
+                    <button mat-icon-button color="accent" (click)="edit(element.id, element.codigo, element.moneda,  
+                    element.nroCuota, element.fechaDesembolso, 
+                    element.fechaPago, element.monto, element.tea, element.interesCompensatorio, element.interesProvision, 
+                    element.igv, element.diasTranscurridos, element.total)">
+                        <mat-icon aria-label="Edit">edit</mat-icon>
+                    </button>
+
+                    <button *ngIf="isAdmin" mat-icon-button color="accent" (click)="delete(element.id)">
+                        <mat-icon aria-label="Delete">delete</mat-icon>
+                    </button>
+                </td>
+
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+    </mat-card-content>
+
+
+</mat-card>
